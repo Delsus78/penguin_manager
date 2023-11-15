@@ -20,4 +20,10 @@ public class PenguinTask {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        String status = this.status ? "x" : " ";
+        return String.format("[%s] %s", status, this.description);
+    }
 }

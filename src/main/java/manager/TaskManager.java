@@ -51,4 +51,13 @@ public class TaskManager {
                 break;
         }
     }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for(int i = 0; i < this.tasks.size(); i++) {
+            output += String.format("%d %s\n", i, this.tasks.get(i));
+        }
+        return output;
+    }
 }

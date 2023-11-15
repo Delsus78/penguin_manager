@@ -84,4 +84,62 @@ public class ManagerTaskTest {
         taskmanager.commandHandler(command);
         assertFalse(taskmanager.getTasks().get(0).getStatus());
     }
+
+    @Test
+    void toStringIsValidWhenTasksIsUnfinish() {
+        String command = "+ test";
+        TaskManager taskmanager = new TaskManager();
+        taskmanager.commandHandler(command);
+
+        String expected = "0 [ ] test\n";
+        assertEquals(expected, taskmanager.toString());
+    }
+
+    @Test
+    void toStringIsValidWhenTasksIsFinish() {
+        String command = "+ test";
+        TaskManager taskmanager = new TaskManager();
+        taskmanager.commandHandler(command);
+
+        command = "x 0";
+        taskmanager.commandHandler(command);
+
+        String expected = "0 [x] test\n";
+        assertEquals(expected, taskmanager.toString());
+    }
+
+    @Test
+    void toStringIsValidWhenTasksIsFinishAndUnfinish() {
+        String command = "+ test";
+        TaskManager taskmanager = new TaskManager();
+        taskmanager.commandHandler(command);
+
+        command = "+ test2";
+        taskmanager.commandHandler(command);
+
+        command = "x 0";
+        taskmanager.commandHandler(command);
+
+        String expected = "0 [x] test\n1 [ ] test2\n";
+        assertEquals(expected, taskmanager.toString());
+    }
+
+    @Test
+    void toStringIsValidWhenTasksIsFinishAndUnfinishAndDelete() {
+        String command = "+ test";
+        TaskManager taskmanager = new TaskManager();
+        taskmanager.commandHandler(command);
+
+        command = "+ test2";
+        taskmanager.commandHandler(command);
+
+        command = "x 0";
+        taskmanager.commandHandler(command);
+
+        command = "- 0";
+        taskmanager.commandHandler(command);
+
+        String expected = "0 [ ] test2\n";
+        assertEquals(expected, taskmanager.toString());
+    }
 }
